@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products List</title>
+    <style>
+        .add_cart{
+            display : block;
+            padding : 10px 5px;
+            background-color : #cc0000;
+            color : #FFFFFF;
+            text-decoration : none;
+            font-weight : bold;
+
+        }
+        .blue_button{
+            display : block;
+            padding : 10px 5px;
+            background-color : #0000cc;
+            color : #FFFFFF;
+            text-decoration : none;
+            font-weight : bold;
+
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous">
+    </script>
+</head>
+<body>
+    <fieldset>
+        <legend>List of Products</legend>
+        {% if products %}
+        <table cellspacing="2" cellpadding="3" border="1" width="100%">
+            <tr>
+                <th align="center">Product Name</th>
+                <th align="center">Product Description</th>
+                <th align="center">Product Price</th>
+                <th align="center">Actions</th>
+            </tr>
+            {% for product in products %}
+                <tr>
+                    <td align="center">{{ product.product }}</td>
+                    <td align="center">{{ product.discription }}</td>
+                    <td align="center">{{ product.price }}</td>
+<!--                    <td align="center"><a href="addtocart/{{ product.id }}" class="add_cart">Add to cart </a> </td>-->
+                        <td align="center"><a href="#" class="add_cart" data-proid="{{ product.id }}">Add to cart </a> </td>
+                </tr>
+            {% endfor %}
+            <tr>
+                    <td colspan="3" style="text-align:center;"><a href="#" class="blue_button" id="emp_cart">Make empty cart</a></td>
+<!--                    <td ><a href="view_cart" class="blue_button">View cart</a></td>-->
+            </tr>
+        </table>
+        {% else %}
+             No data found
+        {% endif %}
+    </fieldset>
+    <script>
+        $(document).ready(function(){
+            $('.add_cart').click(function(){
+                var proid = $(this).attr('data-proid');
+                $.ajax({
+                    'type': 'GET',
+                    'url': 'addtocart/' + proid,
+                    'success': function(message){
+                        alert(message)
+                    }
+                })
+            })
+            $('.#emp_cart').click(function(){
+                $.ajax({
+                    'type': 'POST',
+                    'url': 'empty_cart',
+                    'success': function(message){
+                        alert(message)
+                    }
+                })
+            })
+        }
+        );
+    </script>
+</body>
+</html>
+
+
+<!-- alert("i want to add product id: "+ proid + " to cart")-->

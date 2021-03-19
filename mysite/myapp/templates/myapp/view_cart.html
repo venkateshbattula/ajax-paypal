@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View cart</title>
+</head>
+<body>
+    <fieldset>
+        <legend>View cart products</legend>
+        <h1>{{ message }}</h1>
+        {% if cart_products %}
+        <table width="60%">
+            <tr>
+                <th align="left">Product Name</th>
+                <th align="left">Product Discription</th>
+                <th align="left">Product Price</th>
+            </tr>
+
+            {% for product in cart_products %}
+            <tr>
+                <td>{{ product.product }}</td>
+                <td>{{ product.discription }}</td>
+                <td>{{ product.price }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+
+                <td align="left" colspan="2"> Total Cart</td>
+                <td>{{ total_price.price__sum }}</td>
+            </tr>
+        {% endif %}
+        </table>
+        <br />
+        <hr />
+        <br />
+        <h2>Enter information of customers here</h2>
+        <form method="post" action="">
+            <table cellspacing="2" cellpadding="3" border="0">
+                {% csrf_token %}
+                <tr>
+                    <td>{{ order_form.customer_name.label }}</td>
+                    <td>{{ order_form.customer_name }}  {{ order_form.customer_name.errors }}</td>
+                </tr>
+                <tr>
+                    <td>{{ order_form.customer_address.label }}</td>
+                    <td>{{ order_form.customer_address }}  {{ order_form.customer_address.errors }}</td>
+                </tr>
+                <tr>
+                    <td>{{ order_form.customer_email.label }}</td>
+                    <td>{{ order_form.customer_email }}  {{ order_form.customer_email.errors }}</td>
+                </tr>
+                <tr>
+                    <td>{{ order_form.customer_mobile.label }}</td>
+                    <td>{{ order_form.customer_mobile }}  {{ order_form.customer_mobile.errors }}</td>
+                </tr>
+                <tr>
+                    <td><input type="reset" value="Reset From" /></td>
+                    <td><input type="submit" value="Submit From" /></td>
+                </tr>
+            </table>
+        </form>
+    </fieldset>
+</body>
+</html>
