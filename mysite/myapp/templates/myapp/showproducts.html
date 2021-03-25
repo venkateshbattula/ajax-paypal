@@ -31,6 +31,7 @@
 <body>
     <fieldset>
         <legend>List of Products</legend>
+        {% csrf_token %}
         {% if products %}
         <table cellspacing="2" cellpadding="3" border="1" width="100%">
             <tr>
@@ -70,7 +71,7 @@
             })
         });
         $(document).ready(function(){
-            $('.#emp_cart').click(function(){
+            $('#emp_cart').click(function(){
                     $.ajax({
                     'type': 'POST',
                     'url': 'empty_cart/',
